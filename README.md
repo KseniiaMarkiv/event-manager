@@ -39,3 +39,16 @@ This section contains a general overview of topics that you will learn while per
   ```
     curl -o event_attendees.csv https://raw.githubusercontent.com/TheOdinProject/curriculum/main/ruby/files_and_serialization/event_attendees.csv
   ```
+- so as not to disclose the secret key:
+    - create file `secret.key`;
+    - write API key inside `secret.key`;
+    - create `.gitignore` file and write inside 
+  ```
+    secret.key
+  ```
+    to hide your key safely and don't pass to GitHub repo;
+
+    - save the value in variable `civic_info.key`
+  ```
+    civic_info.key = File.read('secret.key').strip
+  ```
