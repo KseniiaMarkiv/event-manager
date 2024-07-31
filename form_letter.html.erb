@@ -14,11 +14,14 @@
 
   <table>
     <% if legislators.kind_of?(Array) %>
-      <th>Name</th><th>Website</th>
+      <th>Name</th>
+      <th>Website</th>
+      <th>Phone Number</th>
         <% legislators.each do |legislator| %>
         <tr>
           <td><%= "#{legislator.name}" %></td>
           <td><%= "#{legislator.urls.join(" ")}" unless legislator.urls.nil? %></td>
+          <td><%= "#{legislator.phones.join(', ')}" unless legislator.phones.nil? %></td>
         </tr>
         <% end %>
     <% else %>
