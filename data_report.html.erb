@@ -1,0 +1,23 @@
+<html>
+<head>
+  <meta charset='UTF-8'>
+  <title>Registration Data Report</title>
+</head>
+<body>
+  <h1>Registration Data Report</h1>
+  <h2>Hourly Registration Counts</h2>
+  <ul>
+    <% hourly_registrations.each do |hour, count| %>
+      <li><%= hour %>:00 - <%= count %> registrations</li>
+    <% end %>
+  </ul>
+
+  <h2>Peak Registration Hours</h2>
+  <p>The top 3 peak registration hours are:</p>
+  <ul>
+    <% peak_hours.keys.take(3).each do |hour| %>
+      <li><%= hour %>:00</li>
+    <% end %>
+  </ul>
+</body>
+</html>
