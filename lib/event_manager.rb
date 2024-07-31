@@ -36,12 +36,24 @@ template_letter = File.read('form_letter.html.erb')
 erb_template = ERB.new template_letter
 
 contents.each do |row|
+  # Assign an ID for the attendee
+  id = row[0]
+
   name = row[:first_name]
   zipcode = clean_zipcode(row[:zipcode])
 
   legislators = legislators_by_zipcode(zipcode)
 
   form_letter = erb_template.result(binding)
-  puts form_letter
+
+  # Create an output folder
+  Dir.mkdir('output') unless Dir.exist?('output') # If the file already exists it will be DESTROYED.
+
+  # Save each form letter to a file based on the id of the attendee
+  filename = "output/thanks_#{id}.html"
+
+  File.open(filename, 'w') do |file|
+    file.puts form_letter
+  end
 end
 
