@@ -50,3 +50,4 @@ contents.each do |row|
 
   puts personal_letter
 end
+
