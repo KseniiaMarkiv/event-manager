@@ -1,4 +1,5 @@
 require 'erb'
+require 'date'
 
 meaning_of_life = 42
 

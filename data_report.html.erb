@@ -11,12 +11,24 @@
       <li><%= hour %>:00 - <%= count %> registrations</li>
     <% end %>
   </ul>
-
+  <h2>Daily Registration Counts</h2>
+  <ul>
+    <% daily_registrations.each do |day, count| %>
+      <li><%= Date::DAYNAMES[day] %> - <%= count %> registrations</li>
+    <% end %>
+  </ul>
   <h2>Peak Registration Hours</h2>
   <p>The top 3 peak registration hours are:</p>
   <ul>
     <% peak_hours.keys.take(3).each do |hour| %>
       <li><%= hour %>:00</li>
+    <% end %>
+  </ul>
+    <h2>Peak Registration Days</h2>
+  <p>The top 3 peak registration days are:</p>
+  <ul>
+    <% peak_days.each_pair.take(3).map do |day, count| %>
+      <li><%= Date::DAYNAMES[day] %> => <%= count %> times</li>
     <% end %>
   </ul>
 </body>

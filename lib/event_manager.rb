@@ -66,6 +66,7 @@ template_letter = File.read('form_letter.html.erb')
 erb_template = ERB.new template_letter
 
 hourly_registrations = Hash.new(0)
+daily_registrations = Hash.new(0)
 
 contents.each do |row|
   id = row[0]
@@ -77,7 +78,9 @@ contents.each do |row|
   registration_date_time = parse_date_time(row[:regdate])
   if registration_date_time
     hour = registration_date_time.hour
+    day_of_week = registration_date_time.wday
     hourly_registrations[hour] += 1
+    daily_registrations[day_of_week] += 1
   end
 
   legislators = legislators_by_zipcode(zipcode)
@@ -88,10 +91,16 @@ contents.each do |row|
 end
 
 peak_hours = hourly_registrations.sort_by { |hour, count| -count }.to_h
+peak_days = daily_registrations.sort_by { |day, count| -count }.to_h
+
+# Map peak_days keys to their corresponding day names
+peak_day_names = peak_days.each_pair.take(3).map { |day, count| Date::DAYNAMES[day] + " => #{count} times" }
 
 # Output peak hours and counts
 puts "Hourly registration counts: #{hourly_registrations}"
 puts "Peak registration hours: #{peak_hours.keys.take(3)}"
+puts "Daily registration counts: #{daily_registrations}"
+puts "Peak registration days: #{peak_day_names}"
 
 # Save hourly registration data and peak hours in an HTML file
 erb_data_template = File.read('data_report.html.erb')
