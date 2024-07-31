@@ -42,5 +42,11 @@ contents.each do |row|
 
   legislators = legislators_by_zipcode(zipcode)
 
-  puts "#{name} #{zipcode} #{legislators}"
+  # making a copy that 
+  personal_letter = template_letter.gsub('FIRST_NAME', name)
+
+  # then changing the copy, we’re sure everyone’s name is UNIQUE.
+  personal_letter.gsub!('LEGISLATORS', legislators)
+
+  puts personal_letter
 end
