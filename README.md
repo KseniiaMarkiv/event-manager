@@ -148,6 +148,58 @@ These instructions will help you get a copy of the project up and running on you
       header_converters: :symbol
     )
   ```
+**Theory of explanation what that is:**
+
+The `headers: true` option in the `CSV.open` method is used when parsing a CSV file to indicate that the first row of the file contains headers (i.e., the names of the columns).
+
+By setting `headers: true`, Ruby's CSV library treats the first row as headers and not as actual data. This allows you to access each row's data using the header names as keys.
+
+### Example:
+
+Suppose you have a CSV file `event_attendees.csv` like this:
+
+<table>
+  <tr>
+    <th>event_attendees.csv</th>
+    <th>When you parse it with:</th>
+    <th>Each row in <code>contents</code> will be a <code>CSV::Row</code> object where you can access data using the headers:</th>
+  </tr>
+  <tr>
+    <td>
+
+```csv
+first_name,last_name,email
+John,Doe,john.doe@example.com
+Jane,Smith,jane.smith@example.com
+```
+
+</td>
+    <td>
+
+```ruby
+contents = CSV.open(
+  'event_attendees.csv',
+  headers: true,
+  header_converters: :symbol
+)
+```
+
+</td>
+    <td>
+
+```ruby
+contents.each do |row|
+  puts row[:first_name]  #=> "John" for the first row
+  puts row[:last_name]   #=> "Doe" for the first row
+end
+```
+
+</td>
+  </tr>
+</table>
+
+Here, `headers: true` makes sure that the first line is used as the column names instead of actual data rows.
+
 
 ## Contributing
 
